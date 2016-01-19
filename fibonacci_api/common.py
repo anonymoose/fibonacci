@@ -1,4 +1,44 @@
 from flask import jsonify
+from flask import request
+from functools import wraps
+import logging
+import datetime
+
+
+def log_api_call(func):
+    """
+    function:  log_api_call
+
+    params:    function this decorator is decorating.
+
+    returns:   function that being wrapped.  The inner wrapped function is optionally logging api calls and returns the result of the function being wrapped.
+
+    notes:      This decorator function may be applied to any flask api call.  The idea is that if a "Apitrace" header value is supplied, then this can be output
+                to a log.  This is useful for clients using multiple micro services and want to trace transactions through all of them.
+                Currently using the default flask log.  Could be easily augmented to log to centralized syslog, RabbitMQ, or any other mechanism.
+
+    examples:
+
+              -- The code
+
+              @app.route('/fibonacci/foo', methods=['GET'])
+              @log_api_call
+              def fibonacci_foo_api():
+                   do something interesting...
+
+              -- The client
+              curl -H "Apitrace: 1232345346" http://localhost:5000/fibonacci/foo
+
+              -- Output to logs:
+              API CALL: fibonacci_foo_api TRACE: 1232345346
+    """
+    def log_api_call_wrapper(*args, **kwargs):
+        if 'Apitrace' in request.headers and request.headers['Apitrace'] is not None:
+            log = logging.getLogger('werkzeug')
+            log.info("%s | API CALL: %s TRACE: %s " % (str(datetime.datetime.now()), func.__name__, request.headers['Apitrace']))
+        return func(*args, **kwargs)
+    return log_api_call_wrapper
+
 
 def notify_error(msg, status_code):
     """

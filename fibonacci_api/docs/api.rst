@@ -7,6 +7,8 @@ The Fibonacci API is a REST api with one call.  All data is returned in JSON for
 /fibonacci/list
 ------------------------
 
+Purpose: Return a list containing the requested count of Fibonacci numbers.
+
 Method:  GET
 
 Inputs:  count - GET query parameter that must be a positive integer.
@@ -14,6 +16,8 @@ Inputs:  count - GET query parameter that must be a positive integer.
 Success Outputs: JSON formatted hashmap containing a list of numbers under the "answer" key.  This list is returned in increasing order per the Fibonacci Sequence.
 
 Example Success Output:
+
+Default call:
 
 .. code:: console
 
@@ -32,6 +36,28 @@ Example Success Output:
               34
             ]
           }
+
+Api Traced Call
+
+.. code:: console
+
+          $ curl -H "Apitrace: 124asdfq23" http://localhost:5000/fibonacci/api?count=10
+          {
+            "answer": [
+              0,
+              1,
+              1,
+              2,
+              3,
+              5,
+              8,
+              13,
+              21,
+              34
+            ]
+          }
+
+This logging header key is logged to provide tracability across multiple microservices and is not required.
 
 Errors:
 

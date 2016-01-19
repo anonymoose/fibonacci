@@ -1,9 +1,12 @@
-from common import notify_error
+from common import notify_error, log_api_call
 from fibonacci import fibonacci_calc
 from flask import Flask
 from flask import jsonify
 from flask import redirect
 from flask import request
+import logging
+from logging.handlers import RotatingFileHandler
+
 
 app = Flask("FibonacciAPI")
 
@@ -20,7 +23,9 @@ def index():
     return redirect("/static/index.html")
 
 
+
 @app.route('/fibonacci/list', methods=['GET'])
+@log_api_call
 def fibonacci_list_api():
     """
     function:  fibonacci_api
