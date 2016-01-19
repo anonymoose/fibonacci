@@ -50,3 +50,12 @@ $ curl http://localhost:5000/fibonacci/list?count=10
 }
 ```        
 
+Technology Stack / Dependencies
+-------------------------------
+- Python 2.7  - All components are build in Python
+- Nginx       - HTTP Proxy to sitting in front of the Python Service
+- Flask       - Web application framework suitable for creating microservices in Python.
+- Gunicorn    - Pre-fork application server to efficiently serve the Flask application in production.
+- Docker      - Container technology to create simple and consistent deployments.
+- Nose        - Unit testing framework.
+- Sphinx      - Documentation generator
