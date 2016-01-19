@@ -61,10 +61,10 @@ def check_fibonacci_api_output_ok(test_app, expected_array):
                 see test_fibonacci_api() for examples
     """
     l = len(expected_array)
-    resp = test_app.get('/fibonacci/api?count=%d' % l)
+    resp = test_app.get('/fibonacci/list?count=%d' % l)
     out = json.loads(resp.data)
     eq_(resp.status_code, STATUS_OK, "Response code != %s" % STATUS_OK)
-    eq_(out[u'answer'], expected_array, "/fibonacci/api returning wrong answer. Should be: %s" % expected_array)
+    eq_(out[u'answer'], expected_array, "/fibonacci/list returning wrong answer. Should be: %s" % expected_array)
 
 
 def test_fibonacci_docs():
@@ -98,24 +98,24 @@ def test_fibonacci_api_negative():
     """
 
     # test with no argument, both ways
-    resp = test_app.get('/fibonacci/api?count=')
+    resp = test_app.get('/fibonacci/list?count=')
     out = json.loads(resp.data)
     eq_(resp.status_code, STATUS_CLIENT_ERROR, "Response is %s, should be %s" % (resp.status_code, STATUS_CLIENT_ERROR))
     ok_('ERR_NO_ARG' in out['error'], "Response should contain ERR_NO_ARG error message")
 
-    resp = test_app.get('/fibonacci/api')
+    resp = test_app.get('/fibonacci/list')
     out = json.loads(resp.data)
     eq_(resp.status_code, STATUS_CLIENT_ERROR, "Response is %s, should be %s" % (resp.status_code, STATUS_CLIENT_ERROR))
     ok_('ERR_NO_ARG' in out['error'], "Response should contain ERR_NO_ARG error message")
 
     # test with invalid parameter type.
-    resp = test_app.get('/fibonacci/api?count=J')
+    resp = test_app.get('/fibonacci/list?count=J')
     out = json.loads(resp.data)
     eq_(resp.status_code, STATUS_CLIENT_ERROR, "Response is %s, should be %s" % (resp.status_code, STATUS_CLIENT_ERROR))
     ok_('ERR_INVALID_TYPE' in out['error'], "Response should contain ERR_INVALID_TYPE error message")
 
     # test with negative number input
-    resp = test_app.get('/fibonacci/api?count=-1')
+    resp = test_app.get('/fibonacci/list?count=-1')
     out = json.loads(resp.data)
     eq_(resp.status_code, STATUS_CLIENT_ERROR, "Response is %s, should be %s" % (resp.status_code, STATUS_CLIENT_ERROR))
     ok_('ERR_OUT_OF_BOUNDS' in out['error'], "Response should contain ERR_OUT_OF_BOUNDS error message")

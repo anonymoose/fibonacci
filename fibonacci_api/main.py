@@ -20,8 +20,8 @@ def index():
     return redirect("/static/index.html")
 
 
-@app.route('/fibonacci/api', methods=['GET'])
-def fibonacci_api():
+@app.route('/fibonacci/list', methods=['GET'])
+def fibonacci_list_api():
     """
     function:  fibonacci_api
 
