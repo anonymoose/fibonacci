@@ -4,11 +4,6 @@ Fibonacci API
 Example project to implement a Fibonacci API microservice.
 
 
-Documentation
--------------------------
-Documentation root for the project is provided [here](https://github.com/anonymoose/fibonacci/tree/master/fibonacci_api/docs)
-
-
 Getting Started
 -------------------------
 Simple instructions to get set up in development environment are provided [here](https://github.com/anonymoose/fibonacci/blob/master/fibonacci_api/docs/development.rst)
@@ -17,6 +12,42 @@ Simple instructions to get set up in development environment are provided [here]
 Deployment
 -------------------------
 The API is Docker-capable.  Full instructions for getting started are [here](https://github.com/anonymoose/fibonacci/blob/master/fibonacci_api/docs/deployment.rst)
+
+
+Documentation
+-------------------------
+Documentation root for the project is provided [here](https://github.com/anonymoose/fibonacci/tree/master/fibonacci_api/docs)
+
+To build the docs into html:
+
+```
+$ cd fibonacci_api/docs
+$ make html
+```
+
+Documentation appears in $DEV_HOME/fibonacci_api/static/index.html
+
+
+Testing
+-------------------------------
+Run the tests with nosetests
+```
+$ cd $DEV_HOME/fibonacci_api
+$ nosetests --with-coverage --cover-html --cover-package=fibonacci_api --cover-erase
+.....
+
+Name                         Stmts   Miss  Cover   Missing
+----------------------------------------------------------
+fibonacci_api.py                 0      0   100%   
+fibonacci_api/common.py         16      2    88%   37-38
+fibonacci_api/fibonacci.py      13      0   100%   
+fibonacci_api/main.py           31      4    87%   23, 53-54, 75
+----------------------------------------------------------
+TOTAL                           60      6    90%   
+----------------------------------------------------------------------
+Ran 5 tests in 0.027s
+
+```
 
 
 Quick Start for the impatient
