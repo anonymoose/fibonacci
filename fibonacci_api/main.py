@@ -24,8 +24,8 @@ def index():
 
 
 
-@app.route('/fibonacci/list', methods=['GET'])
 @log_api_call
+@app.route('/fibonacci/list', methods=['GET'])
 def fibonacci_list_api():
     """
     function:  fibonacci_api
