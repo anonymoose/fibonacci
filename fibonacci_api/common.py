@@ -21,8 +21,8 @@ def log_api_call(func):
 
               -- The code
 
-              @app.route('/fibonacci/foo', methods=['GET'])
               @log_api_call
+              @app.route('/fibonacci/foo', methods=['GET'])
               def fibonacci_foo_api():
                    do something interesting...
 
